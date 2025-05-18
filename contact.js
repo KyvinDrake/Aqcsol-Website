@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            statusMessage.textContent = 'Please enter a valid email address.';
+            statusMessage.textContent = 'kyvindrakes@aqcsol.com';
             return;
         }
 
