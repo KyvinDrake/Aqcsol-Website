@@ -1,42 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form');
-    const statusMessage = document.getElementById('status-message');
+  const form = document.getElementById('contact-form');
+  const statusMessage = document.getElementById('status-message');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        statusMessage.textContent = '';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusMessage.textContent = '';
 
-        // Client-side validation
-        const name = form.querySelector('input[name="name"]').value.trim();
-        const email = form.querySelector('input[name="email"]').value.trim();
-        const message = form.querySelector('textarea[name="message"]').value.trim();
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const email = form.querySelector('input[name="email"]').value.trim();
+    const message = form.querySelector('textarea[name="message"]').value.trim();
 
-        if (name.length < 2) {
-            statusMessage.textContent = 'Name must be at least 2 characters long.';
-            return;
-        }
+    if (name.length < 2) {
+      statusMessage.textContent = 'Name must be at least 2 characters long.';
+      return;
+    }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            statusMessage.textContent = 'kyvindrakes@aqcsol.com';
-            return;
-        }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      statusMessage.textContent = 'Please enter a valid email address.';
+      return;
+    }
 
-        if (message.length < 10) {
-            statusMessage.textContent = 'Message must be at least 10 characters long.';
-            return;
-        }
+    if (message.length < 10) {
+      statusMessage.textContent = 'Message must be at least 10 characters long.';
+      return;
+    }
 
-        // Mock API submission
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            statusMessage.textContent = 'Message sent successfully!';
-            statusMessage.style.color = '#ffffff';
-            form.reset();
-        } catch (error) {
-            statusMessage.textContent = 'Failed to send message. Please try again.';
-            statusMessage.style.color = '#ff0000';
-        }
-    });
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        statusMessage.textContent = 'Message sent successfully!';
+        statusMessage.style.color = 'green';
+        form.reset();
+      } else {
+        statusMessage.textContent = 'Failed to send message. Please try again.';
+        statusMessage.style.color = 'red';
+      }
+    } catch (error) {
+      statusMessage.textContent = 'There was an error sending the message.';
+      statusMessage.style.color = 'red';
+    }
+  });
 });
