@@ -1,32 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="/Government_Contracting.png" />
+    <link rel="icon" type="image/png" href="/Government_Contracting.png"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aqcsol Solutions specializes in government contracting, offering innovative defense, cybersecurity, and consulting services to federal and state agencies.">
-    <meta name="keywords" content="government contracting, defense innovation, cybersecurity solutions, strategic consulting, federal contracts, state contracts">
+    <meta name="description" content="Aqcsol Solutions delivers cutting-edge government contracting services, specializing in defense innovation, cybersecurity, and strategic consulting for federal and state agencies.">
+    <meta name="keywords" content="government contracting, defense innovation, cybersecurity solutions, strategic consulting, federal contracts, state contracts, government procurement, defense technology, secure IT systems">
     <meta name="author" content="Aqcsol Solutions">
-    <meta property="og:title" content="Aqcsol Solutions - Government Contracting">
-    <meta property="og:description" content="Aqcsol Solutions provides innovative and reliable services for government agencies, with expertise in defense, cybersecurity, and strategic consulting.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Aqcsol Solutions - Premier Government Contracting Services">
+    <meta property="og:description" content="Aqcsol Solutions empowers government missions with innovative defense, cybersecurity, and consulting services, backed by over $43M in secured contracts.">
     <meta property="og:image" content="./Government_Contracting.png">
-    <title>Aqcsol Solutions - Government Contracting</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aqcsol.com">
+    <title>Aqcsol Solutions - Government Contracting Excellence</title>
 
-    <!-- Link to Google Fonts for Orbitron -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Aqcsol Solutions",
+        "url": "https://www.aqcsol.com",
+        "logo": "./Government_Contracting.png",
+        "description": "Aqcsol Solutions provides innovative government contracting services, including defense technology, cybersecurity, and strategic consulting for federal and state agencies.",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact@aqcsol.com",
+            "contactType": "Customer Service"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/company/aqcsol-solutions",
+            "https://x.com/aqcsol"
+        ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            background: #1a1a1a;
-            color: #fff;
+            background: #0a0a0a;
+            color: #ffffff;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(180deg, #000000, #1a0000);
         }
 
         /* Header */
@@ -34,42 +70,48 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: linear-gradient(90deg, #000, #3d0000);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            padding: 20px 50px;
+            padding: 20px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(0, 0, 0, 0.95);
         }
 
         @media(max-width: 414px) {
             header {
-                display: flex;
                 flex-direction: column;
+                padding: 15px;
             }
         }
-            
-        .logo {
-            font-size: 2.2em;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #ff1a1a;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+
+        .logo img {
+            width: 120px;
+            transition: transform 0.3s;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 40px;
+            gap: 30px;
         }
 
         nav ul li a {
-            color: #fff;
+            color: #ffffff;
             text-decoration: none;
             font-weight: 600;
+            font-size: 1.1em;
             position: relative;
             transition: color 0.3s;
         }
@@ -78,19 +120,21 @@
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            background: #ff1a1a;
-            bottom: -5px;
+            height: 3px;
+            background: #ff0000;
+            bottom: -8px;
             left: 0;
-            transition: width 0.3s;
+            transition: width 0.3s ease;
         }
 
-        nav ul li a:hover::after {
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
             width: 100%;
         }
 
-        nav ul li a:hover {
-            color: #ff1a1a;
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #ff0000;
         }
 
         /* Hero Section */
@@ -102,25 +146,15 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(255, 0, 0, 0.3));
-            z-index: 1;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(255, 0, 0, 0.2));
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            transform: translateY(20px);
+            transform: translateY(50px);
             opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+            animation: fadeInUp 1.2s ease forwards;
         }
 
         @keyframes fadeInUp {
@@ -131,96 +165,99 @@
         }
 
         .hero h1 {
-            font-size: 5em;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5.5em;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            color: #ff1a1a;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            margin-bottom: 20px;
+            letter-spacing: 8px;
+            color: #ff0000;
+            text-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            margin-bottom: 25px;
         }
 
         .hero p {
-            font-size: 1.8em;
-            margin-bottom: 40px;
-            color: #ccc;
+            font-size: 1.6em;
+            margin-bottom: 50px;
+            color: #e0e0e0;
+            max-width: 700px;
         }
 
         .cta-button {
-            padding: 18px 50px;
-            background: #ff1a1a;
-            color: #000;
+            padding: 20px 60px;
+            background: #ff0000;
+            color: #ffffff;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
             border-radius: 50px;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .cta-button:hover {
+            background: #cc0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.7);
         }
 
         /* Services Section */
         .services {
-            padding: 120px 50px;
-            background: #000;
+            padding: 140px 60px;
+            background: #000000;
             text-align: center;
+            position: relative;
         }
 
         .services h2 {
-            font-size: 3.5em;
-            color: #ff1a1a;
-            margin-bottom: 60px;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            color: #ff0000;
+            margin-bottom: 80px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
         }
 
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
         }
 
         .service-card {
             background: #1a1a1a;
-            color: #fff;
-            padding: 40px;
-            border-radius: 15px;
+            color: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
             position: relative;
-            transition: transform 0.4s, box-shadow 0.4s;
+            transition: transform 0.5s, box-shadow 0.5s;
             overflow: hidden;
-            border: 1px solid #ff1a1a;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
+            border: 2px solid #ff0000;
+            transform: perspective(1000px) rotateY(0deg);
         }
 
         .service-card:hover {
-            transform: translateY(-15px) rotateX(5deg);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(5deg) translateY(-20px);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.4);
         }
 
         .service-card h3 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #ff1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #ff0000;
+        }
+
+        .service-card p {
+            font-size: 1.2em;
+            color: #d0d0d0;
         }
 
         /* About Section */
         .about {
-            padding: 120px 50px;
+            padding: 140px 60px;
             background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3') no-repeat center center/cover;
             position: relative;
-            color: #fff;
+            color: #ffffff;
         }
 
         .about::before {
@@ -230,60 +267,73 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(255, 0, 0, 0.4));
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(255, 0, 0, 0.3));
         }
 
         .about-content {
             position: relative;
             z-index: 1;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 40px;
-            border-radius: 15px;
-            border: 1px solid #ff1a1a;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 60px;
+            border-radius: 25px;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
         }
 
         .about h2 {
-            font-size: 3.5em;
-            color: #ff1a1a;
-            margin-bottom: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            color: #ff0000;
+            margin-bottom: 40px;
+        }
+
+        .about p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #e0e0e0;
         }
 
         /* Portfolio Section */
         .portfolio {
-            padding: 120px 50px;
-            background:  black;
+            padding: 140px 60px;
+            background: #000000;
             text-align: center;
         }
 
         .portfolio h2 {
-            font-size: 3.5em;
-            color: #ff1a1a;
-            margin-bottom: 60px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            color: #ff0000;
+            margin-bottom: 80px;
         }
 
         .portfolio-grid {
             display: grid;
-            justify-items: center; /* Horizontally center grid items */
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            justify-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
         }
 
         .portfolio-item {
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
-            border: 1px solid #ff1a1a;
+            border-radius: 20px;
+            border: 2px solid #ff0000;
             width: 400px;
             height: 400px;
+            transition: transform 0.5s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
         }
 
         .portfolio-item img {
             width: 100%;
-            height: 350px;
+            height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
         }
@@ -298,7 +348,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(255, 0, 0, 0.5));
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(255, 0, 0, 0.5));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -306,108 +356,145 @@
             transition: opacity 0.5s;
         }
 
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
         .portfolio-overlay h3 {
-            color: #ff1a1a;
-            font-size: 1.8em;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            font-family: 'Orbitron', sans-serif;
+            color: #ff0000;
+            font-size: 2em;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
         }
 
         /* Contact Section */
         .contact {
-            padding: 120px 50px;
-            background: #000;
+            padding: 140px 60px;
+            background: #000000;
             text-align: center;
         }
 
         .contact h2 {
-            font-size: 3.5em;
-            color: #ff1a1a;
-            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            color: #ff0000;
+            margin-bottom: 60px;
         }
 
         .contact form {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
-        .contact input, .contact textarea {
-            padding: 18px;
+        .contact input,
+        .contact textarea {
+            padding: 20px;
             background: #1a1a1a;
-            border: 1px solid #ff1a1a;
-            border-radius: 10px;
-            font-size: 1.1em;
-            color: #fff;
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            font-size: 1.2em;
+            color: #ffffff;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .contact input::placeholder, .contact textarea::placeholder {
-            color: #ccc;
+        .contact input:focus,
+        .contact textarea:focus {
+            outline: none;
+            border-color: #cc0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .contact input::placeholder,
+        .contact textarea::placeholder {
+            color: #999999;
         }
 
         .contact textarea {
             resize: vertical;
-            min-height: 200px;
+            min-height: 220px;
         }
 
         .contact button {
-            padding: 18px;
-            background: #ff1a1a;
-            color: #000;
+            padding: 20px;
+            background: #ff0000;
+            color: #ffffff;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 1.1em;
+            font-size: 1.3em;
             cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
         .contact button:hover {
             background: #cc0000;
-            transform: scale(1.05);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        #status-message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ff0000;
         }
 
         /* Footer */
         footer {
-            padding: 30px;
-            background: linear-gradient(180deg, #000, #3d0000);
+            padding: 40px;
+            background: linear-gradient(180deg, #000000, #1a0000);
             text-align: center;
-            color: #fff;
-            border-top: 2px solid #ff1a1a;
+            color: #ffffff;
+            border-top: 3px solid #ff0000;
         }
 
+        footer p {
+            font-size: 1.1em;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 3em;
+                font-size: 3.5em;
             }
 
             .hero p {
-                font-size: 1.4em;
+                font-size: 1.3em;
             }
 
             header {
-                padding: 15px;
+                padding: 15px 20px;
             }
 
             nav ul {
                 gap: 20px;
             }
 
-            .services, .about, .portfolio, .contact {
-                padding: 80px 20px;
+            .services,
+            .about,
+            .portfolio,
+            .contact {
+                padding: 100px 20px;
+            }
+
+            .service-card,
+            .about-content {
+                padding: 30px;
+            }
+
+            .portfolio-item {
+                width: 300px;
+                height: 300px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
     <header>
         <div class="logo">
-            <img src="./Government_Contracting.png" alt="Government Contracting Logo" width="100px">
+            <img src="./Government_Contracting.png" alt="Aqcsol Solutions Logo" />
         </div>
         <nav>
             <ul>
@@ -423,7 +510,7 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>Government Contracting Redefined</h1>
-            <p>Empowering federal and state missions with bold, innovative solutions.</p>
+            <p>Empowering federal and state missions with bold, innovative solutions in defense, cybersecurity, and consulting.</p>
             <a href="#contact" class="cta-button">Launch Your Project</a>
         </div>
     </section>
@@ -433,15 +520,15 @@
         <div class="service-grid">
             <div class="service-card">
                 <h3>Defense Innovation</h3>
-                <p>Advanced technology and strategic support for national security missions.</p>
+                <p>Advanced technology and strategic support for national security missions, ensuring mission-critical success.</p>
             </div>
             <div class="service-card">
                 <h3>Cybersecurity Solutions</h3>
-                <p>Next-gen, secure IT systems tailored for government compliance.</p>
+                <p>Next-gen, secure IT systems tailored for government compliance and robust protection.</p>
             </div>
             <div class="service-card">
                 <h3>Strategic Consulting</h3>
-                <p>Expert guidance for navigating complex government contracts.</p>
+                <p>Expert guidance for navigating complex government contracts with precision and efficiency.</p>
             </div>
         </div>
     </section>
@@ -449,7 +536,7 @@
     <section class="about" id="about">
         <div class="about-content">
             <h2>Who We Are</h2>
-            <p>Aqcsol Solutions is a leader in government contracting, delivering mission-critical innovation with unmatched precision. Our red-and-black ethos reflects our bold commitment to excellence and security. We also have over 43 million dollars in secured contracts.</p>
+            <p>Aqcsol Solutions is a leader in government contracting, delivering mission-critical innovation with unmatched precision. Our red-and-black ethos reflects our bold commitment to excellence and security. We have secured over $43 million in contracts, partnering with federal and state agencies to drive impactful outcomes.</p>
         </div>
     </section>
 
@@ -474,24 +561,67 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="contact" id="contact">
-    <div class="contact-content">
-        <h2>Contact Us</h2>
-        <form id="contact-form">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Your email" required />
-        <textarea name="message" placeholder="Your message" required></textarea>
-        <button type="submit">Send Message</button>
-        <p id="status-message"></p>
-        </form>
-    </div>
+        <div class="contact-content">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your name" required />
+                <input type="email" name="email" placeholder="Your email" required />
+                <textarea name="message" placeholder="Your message" required></textarea>
+                <button type="submit">Send Message</button>
+                <p id="status-message"></p>
+            </form>
+        </div>
     </section>
 
     <footer>
-        <p>© 2025 Aqcsol. All Rights Reserved.</p>
+        <p>© 2025 Aqcsol Solutions. All Rights Reserved.</p>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ff0000' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#ff0000', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+
+                // Update active class
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
     <script src="./contact.js"></script>
 </body>
 </html>
