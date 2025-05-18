@@ -573,19 +573,18 @@
             </div>
         </div>
     </section>
-
     <section class="contact" id="contact">
-        <div class="contact-content">
-            <h2>Contact Us</h2>
-            <form id="contact-form">
-                <input type="text" name="name" placeholder="Your name" required />
-                <input type="email" name="email" placeholder="Your email" required />
-                <textarea name="message" placeholder="Your message" required></textarea>
-                <button type="submit">Send Message</button>
-                <p id="status-message"></p>
-            </form>
-        </div>
-    </section>
+    <div class="contact-content">
+        <h2>Contact Us</h2>
+        <form id="contact-form" action="https://formspree.io/f/xldbzzav" method="POST">
+            <input type="text" name="name" placeholder="Your name" required />
+            <input type="email" name="email" placeholder="Your email" required />
+            <textarea name="message" placeholder="Your message" required></textarea>
+            <button type="submit">Send Message</button>
+            <p id="status-message"></p>
+        </form>
+    </div>
+</section>
 
     <footer>
         <p>© 2025 Aqcsol Solutions. All Rights Reserved.</p>
