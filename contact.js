@@ -1,29 +1,42 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contact-form");
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    const statusMessage = document.getElementById('status-message');
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        statusMessage.textContent = '';
 
-    const formData = new FormData(form);
+        // Client-side validation
+        const name = form.querySelector('input[name="name"]').value.trim();
+        const email = form.querySelector('input[name="email"]').value.trim();
+        const message = form.querySelector('textarea[name="message"]').value.trim();
 
-    fetch("https://formspree.io/f/xldbzzav", {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-      .then(response => {
-        if (response.ok) {
-          alert("Thanks for your message!");
-          form.reset();
-        } else {
-          alert("Oops! There was a problem submitting your form.");
+        if (name.length < 2) {
+            statusMessage.textContent = 'Name must be at least 2 characters long.';
+            return;
         }
-      })
-      .catch(error => {
-        console.error("Form submission error:", error);
-        alert("Oops! There was a problem submitting your form.");
-      });
-  });
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            statusMessage.textContent = 'Please enter a valid email address.';
+            return;
+        }
+
+        if (message.length < 10) {
+            statusMessage.textContent = 'Message must be at least 10 characters long.';
+            return;
+        }
+
+        // Mock API submission
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            statusMessage.textContent = 'Message sent successfully!';
+            statusMessage.style.color = '#ffffff';
+            form.reset();
+        } catch (error) {
+            statusMessage.textContent = 'Failed to send message. Please try again.';
+            statusMessage.style.color = '#ff0000';
+        }
+    });
 });
