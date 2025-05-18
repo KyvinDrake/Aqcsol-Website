@@ -177,24 +177,31 @@
         }
 
          .hero-content p {
-            margin: 0 auto;
-            max-width: 700px; /* Controls width for better readability */
-            line-height: 1.5;
-            font-size: 1.6em; /* Matches the original .hero p font size */
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8em;
+            margin: 0 auto 50px auto; /* Added bottom margin for spacing */
+            max-width: 800px;
+            line-height: 1.6;
             color: #e0e0e0;
-            text-align: center; /* Ensures text is centered */
-        } 
+            text-align: center;
+            animation: fadeIn 2s ease forwards;
+}
 
         .cta-button {
             padding: 20px 60px;
-            background: #ff0000;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
             color: #ffffff;
             text-decoration: none;
             font-weight: 800;
             font-family: 'Orbitron', sans-serif;
             border-radius: 50px;
-            bottom: 100px
-
+            overflow: hidden;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+            position: relative;
+            margin-top: 20px; /* Added top margin for extra spacing */
+            display: inline-block; /* Ensures button respects text-align: center */
+        }
                 
             overflow: hidden;
             transition: all 0.4s;
