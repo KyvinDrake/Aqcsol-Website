@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqcsol Solutions - Government Contracting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #000, #3d0000);
+            z-index: 1000;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 2.2em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ff1a1a;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #ff1a1a;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: #ff1a1a;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(255, 0, 0, 0.3));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            font-size: 5em;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #ff1a1a;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        .cta-button {
+            padding: 18px 50px;
+            background: #ff1a1a;
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 120px 50px;
+            background: #000;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 3.5em;
+            color: #ff1a1a;
+            margin-bottom: 60px;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
+            transition: transform 0.4s, box-shadow 0.4s;
+            overflow: hidden;
+            border: 1px solid #ff1a1a;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .service-card h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff1a1a;
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 50px;
+            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3') no-repeat center center/cover;
+            position: relative;
+            color: #fff;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(255, 0, 0, 0.4));
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #ff1a1a;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .about h2 {
+            font-size: 3.5em;
+            color: #ff1a1a;
+            margin-bottom: 30px;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 120px 50px;
+            background:  black;
+            text-align: center;
+        }
+
+        .portfolio h2 {
+            font-size: 3.5em;
+            color: #ff1a1a;
+            margin-bottom: 60px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 1px solid #ff1a1a;
+            width: 400px;
+            height: 400px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(0);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(ਸ 0, 0, 0, 0.8), rgba(255, 0, 0, 0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: #ff1a1a;
+            font-size: 1.8em;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 50px;
+            background: #000;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 3.5em;
+            color: #ff1a1a;
+            margin-bottom: 40px;
+        }
+
+        .contact form {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact input, .contact textarea {
+            padding: 18px;
+            background: #1a1a1a;
+            border: 1px solid #ff1a1a;
+            border-radius: 10px;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .contact input::placeholder, .contact textarea::placeholder {
+            color: #ccc;
+        }
+
+        .contact textarea {
+            resize: vertical;
+            min-height: 200px;
+        }
+
+        .contact button {
+            padding: 18px;
+            background: #ff1a1a;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .contact button:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px;
+            background: linear-gradient(180deg, #000, #3d0000);
+            text-align: center;
+            color: #fff;
+            border-top: 2px solid #ff1a1a;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3em;
+            }
+
+            .hero p {
+                font-size: 1.4em;
+            }
+
+            header {
+                padding: 15px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .services, .about, .portfolio, .contact {
+                padding: 80px 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="./Company_Logo_White.png" alt="logo" width="100px">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Government Contracting Redefined</h1>
+            <p>Empowering federal and state missions with bold, innovative solutions.</p>
+            <a href="#contact" class="cta-button">Launch Your Project</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2>Our Expertise</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3>Defense Innovation</h3>
+                <p>Advanced technology and strategic support for national security missions.</p>
+            </div>
+            <div class="service-card">
+                <h3>Cybersecurity Solutions</h3>
+                <p>Next-gen, secure IT systems tailored for government compliance.</p>
+            </div>
+            <div class="service-card">
+                <h3>Strategic Consulting</h3>
+                <p>Expert guidance for navigating complex government contracts.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>Who We Are</h2>
+            <p>Aqcsol Solutions is a leader in government contracting, delivering mission-critical innovation with unmatched precision. Our red-and-black ethos reflects our bold commitment to excellence and security. We also have over 43 million dollars in secured contracts.</p>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <h2>Our Work</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Defense AI Platform</h3>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Cyber Command Center</h3>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Policy Framework</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+    <div class="contact-content">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <textarea name="message" placeholder="Your message" required></textarea>
+        <button type="submit">Send Message</button>
+        <p id="status-message"></p>
+        </form>
+    </div>
+    </section>
+    <footer>
+        <p>© 2025 Aqcsol. All Rights Reserved.</p>
+    </footer>
+    <script src="./contact.js"></script>
+</body>
+</html>
