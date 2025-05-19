@@ -1050,6 +1050,139 @@
             });
         });
     </script>
+        <!-- Chatbot Integration -->
+<script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+<script>
+    window.botpressWebChat.init({
+        botId: "YOUR_BOTPRESS_BOT_ID", // Replace with your Botpress Bot ID
+        hostUrl: "https://cdn.botpress.cloud/webchat/v1",
+        messagingUrl: "https://messaging.botpress.cloud",
+        clientId: "YOUR_BOTPRESS_CLIENT_ID", // Replace with your Botpress Client ID
+        botName: "Aqcsol Assistant",
+        avatarUrl: "./Government_Contracting.png", // Use your logo
+        phoneNumber: null,
+        emailAddress: "contact@aqcsol.com",
+        website: "https://www.aqcsol.com",
+        showConversations: false,
+        enableReset: true,
+        hideWidget: false,
+        showPoweredBy: false
+    });
+</script>
+<style>
+    /* Chatbot Widget Styling */
+    #bp-web-widget {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        z-index: 1000 !important;
+    }
+
+    /* Customize Botpress iframe */
+    #bp-web-widget iframe {
+        border-radius: 15px !important;
+        border: 2px solid #ff0000 !important;
+        background: #1a1a1a !important;
+        box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5) !important;
+    }
+
+    /* Chatbot Button */
+    .bpw-floating-button {
+        background: linear-gradient(90deg, #ff0000, #cc0000) !important;
+        border-radius: 50% !important;
+        width: 60px !important;
+        height: 60px !important;
+        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5) !important;
+        transition: transform 0.3s !important;
+    }
+
+    .bpw-floating-button:hover {
+        transform: scale(1.1) !important;
+        background: #cc0000 !important;
+    }
+
+    /* Chatbot Header */
+    .bpw-header-container {
+        background: #000000 !important;
+        border-bottom: 2px solid #ff0000 !important;
+        font-family: 'Orbitron', sans-serif !important;
+        color: #ff0000 !important;
+    }
+
+    /* Chatbot Messages */
+    .bpw-chat-container {
+        background: #1a1a1a !important;
+        font-family: 'Montserrat', sans-serif !important;
+        color: #ffffff !important;
+    }
+
+    .bpw-from-bot .bpw-chat-bubble {
+        background: #ff0000 !important;
+        color: #ffffff !important;
+        border-radius: 10px !important;
+    }
+
+    .bpw-from-user .bpw-chat-bubble {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border-radius: 10px !important;
+    }
+
+    /* Input Area */
+    .bpw-composer {
+        background: #1a1a1a !important;
+        border-top: 2px solid #ff0000 !important;
+    }
+
+    .bpw-composer textarea {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        border: 1px solid #ff0000 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        border-radius: 10px !important;
+    }
+
+    .bpw-composer textarea::placeholder {
+        color: #999999 !important;
+    }
+
+    .bpw-send-button {
+        background: #ff0000 !important;
+        color: #ffffff !important;
+        border-radius: 50% !important;
+    }
+
+    .bpw-send-button:hover {
+        background: #cc0000 !important;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .bpw-floating-button {
+            width: 50px !important;
+            height: 50px !important;
+        }
+
+        #bp-web-widget iframe {
+            width: 300px !important;
+            height: 400px !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .bpw-floating-button {
+            width: 45px !important;
+            height: 45px !important;
+            bottom: 15px !important;
+            right: 15px !important;
+        }
+
+        #bp-web-widget iframe {
+            width: 90% !important;
+            height: 350px !important;
+        }
+    }
+</style>
     <script src="./contact.js"></script>
 </body>
 </html>
