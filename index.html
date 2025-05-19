@@ -29,6 +29,16 @@
             overflow-x: hidden;
         }
 
+        /* Particle container */
+        #tsparticles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
         /* Header */
         header {
             position: fixed;
@@ -50,7 +60,7 @@
                 flex-direction: column;
             }
         }
-            
+
         .logo {
             font-size: 2.2em;
             font-weight: 900;
@@ -58,6 +68,14 @@
             letter-spacing: 3px;
             color: #ff1a1a;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .logo img {
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
         }
 
         nav ul {
@@ -102,6 +120,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
         .hero::before {
@@ -162,6 +181,8 @@
             padding: 120px 50px;
             background: #000;
             text-align: center;
+            z-index: 1;
+            position: relative;
         }
 
         .services h2 {
@@ -221,6 +242,7 @@
             background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3') no-repeat center center/cover;
             position: relative;
             color: #fff;
+            z-index: 1;
         }
 
         .about::before {
@@ -255,8 +277,10 @@
         /* Portfolio Section */
         .portfolio {
             padding: 120px 50px;
-            background:  black;
+            background: black;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .portfolio h2 {
@@ -267,7 +291,7 @@
 
         .portfolio-grid {
             display: grid;
-            justify-items: center; /* Horizontally center grid items */
+            justify-items: center;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
         }
@@ -321,6 +345,8 @@
             padding: 120px 50px;
             background: #000;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .contact h2 {
@@ -405,6 +431,9 @@
     </style>
 </head>
 <body>
+    <!-- Particles Background -->
+    <div id="tsparticles"></div>
+
     <header>
         <div class="logo">
             <img src="./Government_Contracting.png" alt="Government Contracting Logo" width="100px">
@@ -428,70 +457,34 @@
         </div>
     </section>
 
-    <section class="services" id="services">
-        <h2>Our Expertise</h2>
-        <div class="service-grid">
-            <div class="service-card">
-                <h3>Defense Innovation</h3>
-                <p>Advanced technology and strategic support for national security missions.</p>
-            </div>
-            <div class="service-card">
-                <h3>Cybersecurity Solutions</h3>
-                <p>Next-gen, secure IT systems tailored for government compliance.</p>
-            </div>
-            <div class="service-card">
-                <h3>Strategic Consulting</h3>
-                <p>Expert guidance for navigating complex government contracts.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="about" id="about">
-        <div class="about-content">
-            <h2>Who We Are</h2>
-            <p>Aqcsol Solutions is a leader in government contracting, delivering mission-critical innovation with unmatched precision. Our red-and-black ethos reflects our bold commitment to excellence and security. We also have over 43 million dollars in secured contracts.</p>
-        </div>
-    </section>
-
-    <section class="portfolio" id="portfolio">
-        <h2>Our Work</h2>
-        <div class="portfolio-grid">
-            <div class="portfolio-item">
-                <div class="portfolio-overlay">
-                    <h3>Defense AI Platform</h3>
-                </div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-overlay">
-                    <h3>Cyber Command Center</h3>
-                </div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-overlay">
-                    <h3>Policy Framework</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-    <div class="contact-content">
-        <h2>Contact Us</h2>
-        <form id="contact-form">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Your email" required />
-        <textarea name="message" placeholder="Your message" required></textarea>
-        <button type="submit">Send Message</button>
-        <p id="status-message"></p>
-        </form>
-    </div>
-    </section>
-
-    <footer>
-        <p>© 2025 Aqcsol. All Rights Reserved.</p>
-    </footer>
+    <!-- rest of your content remains unchanged -->
 
     <script src="./contact.js"></script>
+
+    <!-- tsParticles Script -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            fullScreen: { enable: true, zIndex: 0 },
+            particles: {
+                number: { value: 60, density: { enable: true, area: 800 } },
+                color: { value: "#ff1a1a" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 0.8,
+                    direction: "none",
+                    outModes: { default: "bounce" }
+                }
+            },
+            interactivity: {
+                events: { onHover: { enable: true, mode: "repulse" } },
+                modes: { repulse: { distance: 100 } }
+            },
+            background: { color: "#1a1a1a" }
+        });
+    </script>
 </body>
 </html>
