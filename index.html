@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/png" href="/Favion.png"/>
@@ -93,7 +54,7 @@
             position: relative;
         }
 
-        /* Particle Background */
+        /* Particle Background for Hero */
         #particles-js {
             position: fixed;
             top: 0;
@@ -333,19 +294,19 @@
         /* About Section */
         .about {
             padding: 140px 60px;
-            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3') no-repeat center center/cover;
             position: relative;
             color: #ffffff;
+            overflow: hidden;
         }
 
-        .about::before {
-            content: '';
+        #about-particles {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(255, 0, 0, 0.3));
+            z-index: 0;
+            background: linear-gradient(135deg, #000000, #1a0000);
         }
 
         .about-content {
@@ -397,53 +358,43 @@
 
         .portfolio-item {
             position: relative;
-            overflow: hidden;
             border-radius: 20px;
             border: 2px solid #ff0000;
             width: 100%;
             max-width: 400px;
             height: 400px;
+            background: #1a1a1a;
             transition: transform 0.5s;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .portfolio-item:hover {
             transform: scale(1.05);
         }
 
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
+        .portfolio-content {
+            padding: 20px;
+            text-align: left;
+            color: #ffffff;
         }
 
-        .portfolio-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(255, 0, 0, 0.5));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        .portfolio-overlay h3 {
+        .portfolio-content h3 {
             font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
             color: #ff0000;
-            font-size: 2em;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .portfolio-content p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            color: #ffffff;
+            line-height: 1.5;
+            overflow-y: auto;
+            max-height: 300px;
         }
 
         /* Contact Section */
@@ -555,7 +506,7 @@
             .about,
             .portfolio,
             .contact {
-                padding: 100px 40px;
+                padding: 15px 40px;
             }
         }
 
@@ -628,6 +579,14 @@
             .portfolio-item {
                 max-width: 300px;
                 height: 300px;
+            }
+
+            .portfolio-content h3 {
+                font-size: 1.5em;
+            }
+
+            .portfolio-content p {
+                font-size: 0.9em;
             }
 
             .contact input,
@@ -708,8 +667,12 @@
                 height: 250px;
             }
 
-            .portfolio-overlay h3 {
-                font-size: 1.5em;
+            .portfolio-content h3 {
+                font-size: 1.3em;
+            }
+
+            .portfolio-content p {
+                font-size: 0.8em;
             }
 
             .contact form {
@@ -760,7 +723,7 @@
     </style>
 </head>
 <body>
-    <!-- Particle Background -->
+    <!-- Particle Background for Hero -->
     <div id="particles-js"></div>
 
     <header>
@@ -810,120 +773,36 @@
     </section>
 
     <section class="about" id="about">
+        <div id="about-particles"></div>
         <div class="about-content">
             <h2>Who We Are</h2>
             <p>Aqcsol Solutions is a leader in government contracting, delivering mission-critical innovation with unmatched precision. Our red-and-black ethos reflects our bold commitment to excellence and security. We have secured over $43 million in contracts, partnering with federal and state agencies to drive impactful outcomes.</p>
         </div>
     </section>
 
-   <section class="portfolio" id="portfolio">
-    <h2>Our Work</h2>
-    <div class="portfolio-grid">
-        <div class="portfolio-item">
-            <div class="portfolio-content">
-                <h3>Defense AI Platform</h3>
-                <p>We developed an advanced Defense AI Platform that integrates machine learning with real-time battlefield analytics, enhancing decision-making for defense agencies. Our deployment across multiple military branches reduced strategic response times by 40% and achieved a 95% accuracy rate in threat identification, solidifying our role as a leader in defense innovation.</p>
+    <section class="portfolio" id="portfolio">
+        <h2>Our Work</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-content">
+                    <h3>Defense AI Platform</h3>
+                    <p>We developed an advanced Defense AI Platform that integrates machine learning with real-time battlefield analytics, enhancing decision-making for defense agencies. Our deployment across multiple military branches reduced strategic response times by 40% and achieved a 95% accuracy rate in threat identification, solidifying our role as a leader in defense innovation.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-content">
+                    <h3>Cyber Command Center</h3>
+                    <p>Our Cyber Command Center delivers 24/7 monitoring and rapid response for critical government infrastructure. Implemented for a key federal client, it neutralized over 10,000 cyber threats in its first year and maintained 99.9% network uptime, setting a benchmark for cybersecurity excellence.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-content">
+                    <h3>Policy Framework</h3>
+                    <p>The Policy Framework project introduced AI-driven tools to streamline regulatory compliance for government agencies. Our solution cut audit times by 60% and ensured seamless adherence to international standards, empowering clients to navigate complex policy environments with ease.</p>
+                </div>
             </div>
         </div>
-        <div class="portfolio-item">
-            <div class="portfolio-content">
-                <h3>Cyber Command Center</h3>
-                <p>Our Cyber Command Center delivers 24/7 monitoring and rapid response for critical government infrastructure. Implemented for a key federal client, it neutralized over 10,000 cyber threats in its first year and maintained 99.9% network uptime, setting a benchmark for cybersecurity excellence.</p>
-            </div>
-        </div>
-        <div class="portfolio-item">
-            <div class="portfolio-content">
-                <h3>Policy Framework</h3>
-                <p>The Policy Framework project introduced AI-driven tools to streamline regulatory compliance for government agencies. Our solution cut audit times by 60% and ensured seamless adherence to international standards, empowering clients to navigate complex policy environments with ease.</p>
-            </div>
-        </div>
-    </div>
-    <style>
-        .portfolio {
-            padding: 140px 60px;
-            background: #000000;
-            text-align: center;
-        }
-        .portfolio h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4em;
-            color: #ff0000;
-            margin-bottom: 80px;
-        }
-        .portfolio-grid {
-            display: grid;
-            justify-items: center;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-        .portfolio-item {
-            position: relative;
-            border-radius: 20px;
-            border: 2px solid #ff0000;
-            width: 100%;
-            max-width: 400px;
-            height: 400px;
-            background: #1a1a1a;
-            transition: transform 0.5s;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .portfolio-item:hover {
-            transform: scale(1.05);
-        }
-        .portfolio-content {
-            padding: 20px;
-            text-align: left;
-            color: #ffffff;
-        }
-        .portfolio-content h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8em;
-            color: #ff0000;
-            margin-bottom: 15px;
-        }
-        .portfolio-content p {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1em;
-            color: #ffffff;
-            line-height: 1.5;
-            overflow-y: auto;
-            max-height: 300px;
-        }
-        @media (max-width: 768px) {
-            .portfolio-item {
-                max-width: 300px;
-                height: 300px;
-            }
-            .portfolio-content h3 {
-                font-size: 1.5em;
-            }
-            .portfolio-content p {
-                font-size: 0.9em;
-            }
-        }
-        @media (max-width: 480px) {
-            .portfolio {
-                padding: 60px 15px;
-            }
-            .portfolio h2 {
-                font-size: 2.2em;
-            }
-            .portfolio-item {
-                max-width: 100%;
-                height: 250px;
-            }
-            .portfolio-content h3 {
-                font-size: 1.3em;
-            }
-            .portfolio-content p {
-                font-size: 0.8em;
-            }
-        }
-    </style>
-</section>
+    </section>
 
     <section class="contact" id="contact">
         <div class="contact-content">
@@ -951,40 +830,33 @@
           return cell !== '' && cell != null;
         }
         function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
                 }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
             }
-        }
-        return gk_fileData[filename] || "";
+            return gk_fileData[filename] || "";
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
+        // Hero section particles
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -1003,6 +875,25 @@
             retina_detect: true
         });
 
+        // About section particles
+        particlesJS('about-particles', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 1000 } },
+                color: { value: '#ff0000' },
+                shape: { type: 'triangle' },
+                opacity: { value: 0.6, random: true },
+                size: { value: 4, random: true },
+                line_linked: { enable: true, distance: 200, color: '#cc0000', opacity: 0.3, width: 1.5 },
+                move: { enable: true, speed: 8, direction: 'none', random: true, straight: false, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { grab: { distance: 150, line_linked: { opacity: 0.5 } }, push: { particles_nb: 3 } }
+            },
+            retina_detect: true
+        });
+
         // Header scroll effect
         let lastScrollTop = 0;
         window.addEventListener('scroll', () => {
@@ -1010,10 +901,8 @@
             const currentScroll = window.scrollY;
 
             if (currentScroll > lastScrollTop && currentScroll > 50) {
-                // Scrolling down
                 header.classList.add('hide');
             } else {
-                // Scrolling up
                 header.classList.remove('hide');
             }
             header.classList.toggle('scrolled', currentScroll > 50);
@@ -1040,18 +929,16 @@
                     behavior: 'smooth'
                 });
 
-                // Update active class
                 document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
 
-                // Close mobile menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
         });
     </script>
-        <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
-        <script src="https://files.bpcontent.cloud/2025/05/20/00/20250520005607-47I2K5SY.js"></script>
+    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/05/20/00/20250520005607-47I2K5SY.js"></script>
     <script src="./contact.js"></script>
 </body>
 </html>
