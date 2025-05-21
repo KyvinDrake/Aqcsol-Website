@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://kyvindrake.github.io/Aqcsol-Website/sitemap.xml
