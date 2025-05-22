@@ -1,0 +1,309 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="/Favion.png"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore upcoming projects at Aqcsol Solutions, featuring innovative defense technology, advanced cybersecurity systems, and strategic consulting for government agencies.">
+    <meta name="keywords" content="upcoming projects, government contracting, defense technology, cybersecurity innovation, strategic consulting, federal contracts, state contracts">
+    <meta name="author" content="Aqcsol Solutions">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Aqcsol Solutions - Upcoming Projects">
+    <meta property="og:description" content="Discover Aqcsol Solutions' upcoming initiatives in defense innovation, cybersecurity, and strategic consulting for federal and state missions.">
+    <meta property="og:image" content="./Government_Contracting.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aqcsol.com/upcoming.html">
+    <title>Aqcsol Solutions - Upcoming Projects</title>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Aqcsol Solutions",
+        "url": "https://www.aqcsol.com",
+        "logo": "./Government_Contracting.png",
+        "description": "Aqcsol Solutions is preparing to launch innovative projects in defense technology, cybersecurity, and strategic consulting for government agencies.",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact@aqcsol.com",
+            "contactType": "Customer Service"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/company/aqcsol-solutions",
+            "https://x.com/aqcsol"
+        ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Inline CSS for Upcoming Projects Page -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #1a1a1a;
+        }
+
+        .upcoming {
+            position: relative;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            color: #fff;
+            text-align: center;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .upcoming-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            color: #e50914;
+            margin-bottom: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .upcoming-content p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            color: #ccc;
+            z-index: 10;
+            position: relative;
+        }
+
+        .upcoming-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+        }
+
+        .upcoming-item {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #e50914;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .upcoming-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.5);
+        }
+
+        .upcoming-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #e50914;
+            margin-bottom: 15px;
+        }
+
+        .upcoming-item p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #e50914;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 40px;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+            position: relative;
+        }
+
+        .cta-button:hover {
+            background-color: #b2070f;
+        }
+
+        footer {
+            padding: 20px;
+            background: #000;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            color: #ccc;
+            font-size: 0.9rem;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+        }
+
+        #upcoming-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <section class="upcoming" id="upcoming">
+        <div id="upcoming-particles"></div>
+        <div class="upcoming-content">
+            <h1>Upcoming Projects</h1>
+            <p>Explore the next frontier of government contracting with Aqcsol Solutions. Our upcoming initiatives push the boundaries of defense technology, cybersecurity, and strategic consulting, delivering transformative solutions for federal and state missions.</p>
+        </div>
+        <div class="upcoming-grid">
+            <div class="upcoming-item">
+                <div class="upcoming-content">
+                    <h3>Next-Gen Drone Defense System</h3>
+                    <p>Developing an AI-powered drone defense platform to enhance airspace security for military installations. This system will integrate real-time threat detection and autonomous response capabilities, set to launch in Q3 2026.</p>
+                </div>
+            </div>
+            <div class="upcoming-item">
+                <div class="upcoming-content">
+                    <h3>Quantum Cybersecurity Framework</h3>
+                    <p>Building a quantum-resistant cybersecurity architecture for government networks, designed to protect against emerging threats. Expected to begin deployment in Q2 2026, ensuring robust data security for federal agencies.</p>
+                </div>
+            </div>
+            <div class="upcoming-item">
+                <div class="upcoming-content">
+                    <h3>Smart Logistics Optimization</h3>
+                    <p>Creating an AI-driven logistics platform to streamline supply chain operations for defense agencies. This project, slated for Q4 2026, aims to reduce costs by 30% and improve delivery times for critical resources.</p>
+                </div>
+            </div>
+        </div>
+        <a href="index.html#contact" class="cta-button">Partner with Us</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Aqcsol Solutions. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/05/20/00/20250520005607-47I2K5SY.js"></script>
+    <script src="./fileHandler.js"></script>
+    <script src="./particlesConfig.js"></script>
+    <script src="./uiInteractions.js"></script>
+    <!-- Script for advanced particle effect -->
+    <script>
+        particlesJS('upcoming-particles', {
+            particles: {
+                number: { value: 200, density: { enable: true, value_area: 800 } },
+                color: { 
+                    value: ['#e50914', '#ff4d4d', '#ffffff', '#b2070f', '#ff9999'], 
+                    anim: { enable: true, speed: 20, color_min_hue: 0, sync: false } 
+                },
+                shape: { 
+                    type: ['circle', 'polygon'], 
+                    stroke: { width: 1, color: '#e50914' }, 
+                    polygon: { nb_sides: 6 } 
+                },
+                opacity: { 
+                    value: 0.8, 
+                    random: true, 
+                    anim: { enable: true, speed: 2, opacity_min: 0.2, sync: false } 
+                },
+                size: { 
+                    value: 6, 
+                    random: true, 
+                    anim: { enable: true, speed: 4, size_min: 2, sync: false } 
+                },
+                line_linked: { 
+                    enable: true, 
+                    distance: 120, 
+                    color: '#e50914', 
+                    opacity: 0.4, 
+                    width: 2 
+                },
+                move: { 
+                    enable: true, 
+                    speed: 6, 
+                    direction: 'none', 
+                    random: true, 
+                    straight: false, 
+                    out_mode: 'out', 
+                    bounce: false,
+                    attract: { enable: true, rotateX: 1000, rotateY: 2000 }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { 
+                    onhover: { enable: true, mode: 'grab' }, 
+                    onclick: { enable: true, mode: 'push' }, 
+                    resize: true 
+                },
+                modes: { 
+                    grab: { distance: 200, line_linked: { opacity: 0.6 } },
+                    push: { particles_nb: 8, quantity: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+</body>
+</html>
