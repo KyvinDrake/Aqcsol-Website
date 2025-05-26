@@ -81,7 +81,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./styles.css">
 
-    <!-- Inline CSS for Upcoming Projects Page (Scoped to Avoid Conflicts) -->
+    <!-- Inline CSS for Upcoming Projects Page -->
     <style>
         body.upcoming-page {
             margin: 0;
@@ -109,8 +109,6 @@
             font-size: 3.5rem;
             color: #e50914;
             margin-bottom: 20px;
-            z-index: 10;
-            position: relative;
         }
 
         .upcoming-page .upcoming-content p {
@@ -119,8 +117,6 @@
             max-width: 900px;
             margin: 0 auto 40px;
             color: #ccc;
-            z-index: 10;
-            position: relative;
         }
 
         .upcoming-page .upcoming-grid {
@@ -130,8 +126,6 @@
             max-width: 1200px;
             margin: 0 auto 40px;
             width: 100%;
-            z-index: 10;
-            position: relative;
         }
 
         .upcoming-page .upcoming-item {
@@ -140,10 +134,7 @@
             border-radius: 10px;
             padding: 25px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            z-index: 10;
-            position: relative;
             cursor: pointer;
-            pointer-events: auto;
         }
 
         .upcoming-page .upcoming-item:hover {
@@ -176,9 +167,6 @@
             border-radius: 5px;
             margin: 10px 20px;
             transition: background-color 0.3s ease;
-            z-index: 10;
-            position: relative;
-            pointer-events: auto;
         }
 
         .upcoming-page .cta-button:hover,
@@ -191,7 +179,6 @@
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 40px;
-            z-index: 10;
         }
 
         .upcoming-page footer {
@@ -202,8 +189,6 @@
             color: #ccc;
             font-size: 0.9rem;
             width: 100%;
-            z-index: 10;
-            position: relative;
         }
 
         .upcoming-page #upcoming-particles {
@@ -218,10 +203,9 @@
 </head>
 <body class="upcoming-page">
     <!-- Particle Background -->
-    <div id="particles-js"></div>
+    <div id="upcoming-particles"></div>
 
     <section class="upcoming" id="upcoming">
-        <div id="upcoming-particles"></div>
         <div class="upcoming-content">
             <h1>Upcoming Projects</h1>
             <p>Explore the next frontier of government contracting with Aqcsol Solutions. Our upcoming initiatives push the boundaries of defense technology, cybersecurity, and strategic consulting, delivering transformative solutions for federal and state missions.</p>
@@ -256,6 +240,41 @@
         <p>© 2025 Aqcsol Solutions. All Rights Reserved.</p>
     </footer>
 
+    <!-- Optimized File Handling Script -->
+    <script>
+        const fileData = new Map();
+        let isXlsx = false;
+
+        function loadFileData(filename) {
+            if (!isXlsx || !fileData.has(filename)) return "";
+            try {
+                const workbook = XLSX.read(fileData.get(filename), { type: 'base64' });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1, blankrows: false, defval: '' });
+                
+                // Filter non-empty rows
+                const filteredData = jsonData.filter(row => row.some(cell => cell !== '' && cell != null));
+                
+                // Find header row (first row with most non-empty cells)
+                let maxFilled = 0;
+                let headerRowIndex = 0;
+                filteredData.forEach((row, index) => {
+                    const filledCount = row.filter(cell => cell !== '' && cell != null).length;
+                    if (filledCount > maxFilled) {
+                        maxFilled = filledCount;
+                        headerRowIndex = index;
+                    }
+                });
+
+                // Convert back to CSV
+                return XLSX.utils.sheet_to_csv(XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)));
+            } catch (e) {
+                console.error("Error processing file:", e);
+                return "";
+            }
+        }
+    </script>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
@@ -263,60 +282,23 @@
     <script src="./fileHandler.js"></script>
     <script src="./particlesConfig.js"></script>
     <script src="./uiInteractions.js"></script>
-    <!-- Script for advanced particle effect -->
+
+    <!-- Optimized Particle Effect -->
     <script>
         particlesJS('upcoming-particles', {
             particles: {
-                number: { value: 250, density: { enable: true, value_area: 800 } },
-                color: { 
-                    value: ['#e50914', '#ff4d4d', '#ffffff', '#b2070f', '#ff9999'], 
-                    anim: { enable: true, speed: 30, color_min_hue: 0, sync: false } 
-                },
-                shape: { 
-                    type: ['circle', 'polygon', 'edge'], 
-                    stroke: { width: 1.5, color: '#e50914' }, 
-                    polygon: { nb_sides: 6 } 
-                },
-                opacity: { 
-                    value: 0.9, 
-                    random: true, 
-                    anim: { enable: true, speed: 3, opacity_min: 0.2, sync: false } 
-                },
-                size: { 
-                    value: 7, 
-                    random: true, 
-                    anim: { enable: true, speed: 5, size_min: 2, sync: false } 
-                },
-                line_linked: { 
-                    enable: true, 
-                    distance: 100, 
-                    color: '#e50914', 
-                    opacity: 0.5, 
-                    width: 2.5 
-                },
-                move: { 
-                    enable: true, 
-                    speed: 8, 
-                    direction: 'none', 
-                    random: true, 
-                    straight: false, 
-                    out_mode: 'bounce', 
-                    bounce: true,
-                    attract: { enable: true, rotateX: 1200, rotateY: 2400 }
-                }
+                number: { value: 80, density: { enable: true, value_area: 1000 } },
+                color: { value: ['#e50914', '#ffffff'] },
+                shape: { type: 'circle', stroke: { width: 0 } },
+                opacity: { value: 0.7, random: false },
+                size: { value: 4, random: true, anim: { enable: false } },
+                line_linked: { enable: true, distance: 120, color: '#e50914', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 3, direction: 'none', random: false, straight: false, out_mode: 'out' }
             },
             interactivity: {
                 detect_on: 'canvas',
-                events: { 
-                    onhover: { enable: true, mode: ['grab', 'bubble'] }, 
-                    onclick: { enable: true, mode: 'push' }, 
-                    resize: true 
-                },
-                modes: { 
-                    grab: { distance: 250, line_linked: { opacity: 0.7 } },
-                    bubble: { distance: 300, size: 10, duration: 0.4, opacity: 1 },
-                    push: { particles_nb: 10, quantity: 5 }
-                }
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false }, resize: true },
+                modes: { grab: { distance: 200, line_linked: { opacity: 0.5 } } }
             },
             retina_detect: true
         });
